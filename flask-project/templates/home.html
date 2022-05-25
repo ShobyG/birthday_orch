@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% set active_page = 'home' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for msg in messages %}
+            <p> {{ msg }}</p>
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="#" method="post">
+    {{ form.csrf_token }}
+    <div class="row" style = "background-image: url({{ url_for('static', filename='image.jpg', mode = 'fit') }})">
+        <div class="col">
+            {{ form.birthday.label(class="form-label") }}
+		    {{ form.birthday(class="form-control") }}
+{#            <label for="bday">Enter your birthday</label>#}
+{#            <input type="date" name = "birthday" class="form-control" placeholder="Enter your birthday">#}
+        </div>
+        <div class="col">
+            {{ form.digit.label(class="form-label") }}
+		    {{ form.digit(class="form-control") }}
+{#            <label for="bday"> Number of results </label>#}
+{#            <input type="number" name = "digit" class="form-control" placeholder="Number of results">#}
+        </div>
+        <div class="col">
+            {{ form.submit(class="btn btn-primary") }}
+{#            <button type="submit" value = "search" class="btn btn-primary">Search</button>#}
+        </div>
+    </div>
+    </form>
+ {% endblock %}
+
+

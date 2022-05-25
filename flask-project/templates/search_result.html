@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% set active_page = 'People with same birthday' %}
+{% block title %} People with same birthday
+<link href="myStyle.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+    <form action="#" method="post">
+    {{ form.csrf_token }}
+    <div class="row" style = "background-image: url({{ url_for('static', filename='image.jpg', mode = 'fit') }})">
+        <div class="col">
+            {{ form.birthday.label(class="form-label") }}
+		    {{ form.birthday(class="form-control") }}
+        </div>
+        <div class="col">
+            {{ form.digit.label(class="form-label") }}
+		    {{ form.digit(class="form-control") }}
+        </div>
+        <div class="col">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </div>
+    </form>
+
+    <table class="table" style = "background-image: url({{ url_for('static', filename='image.jpg', mode = 'fit') }})">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Birth year</th>
+        </tr>
+      </thead>
+      <tbody>
+
+            {% for birth in myData %}
+                <tr>
+                    <td class="align-middle">{{ loop.index0 + 1 }}</td>
+                    <td class="align-middle"> <img src= {{ birth['thumbnail'] }} class="img-thumbnail" style="max-height:50px;max-width:50px;"> <a href={{ birth['content_urls'] }} target="_blank" rel="noopener noreferrer">{{birth['text']}}</a> </td>
+                    <td class="align-middle">{{ birth['year']}}</td>
+                </tr>
+
+            {% endfor %}
+
+      </tbody>
+    </table>
+ {% endblock %}

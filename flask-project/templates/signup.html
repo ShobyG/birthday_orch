@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% set active_page = 'signup' %}
+{% block title %} Signup {% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p> {{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{#<div class="w-50" style = "background-image: url({{ url_for('static', filename='image.jpg', mode = 'fit') }})">#}
+    <div class="row">
+    <div class="col">
+    <div class="form_wrapper">
+    <div class="form_container">
+        <div class="title_container">
+      <h2> Signup </h2>
+    </div>
+<form method="post">
+  {{ form.csrf_token }}
+  <div class="mb-3">
+	<fieldset class="form-field">
+		{{ form.email.label(class="form-label") }}
+		{{ form.email(class="form-control") }}
+		{% if form.email.errors %}
+            <ul class="errors">
+              {% for error in form.email.errors %}
+				`  <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+	    {% endif %}
+    </fieldset>
+  </div>
+    <div class="mb-3">
+	<fieldset class="form-field">
+		{{ form.username.label(class="form-label") }}
+		{{ form.username(class="form-control") }}
+    </fieldset>
+  </div>
+  <div class="mb-3">
+	<fieldset class="form-field">
+		{{ form.password.label(class="form-label") }}
+		{{ form.password(class="form-control") }}
+    </fieldset>
+  </div>
+<div class="mb-3">
+	<fieldset class="form-field">
+		{{ form.confirm_password.label(class="form-label") }}
+		{{ form.confirm_password(class="form-control") }}
+    </fieldset>
+  </div>
+  {{ form.submit(class="btn btn-primary") }}
+    <p class="credit"> <a href="/login" role="button">Cancel</a></p>
+</form>
+</div>
+       </div> </div>
+
+    <div class="col">
+    </div>
+       <div class="col">
+       </div></div>
+ {% endblock %}
