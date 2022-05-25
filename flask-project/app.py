@@ -17,7 +17,20 @@ class LoginForm(FlaskForm):
 
 class Signup(FlaskForm):
     email = StringField(label="Enter email", validators=[DataRequired(), Email()])
+    
+    def validate_email(self, field):
+        user = UserModel.query.filter_by(email =f"{field.data}").first()
+        if user is not None:
+            flash(f"{field.data} already in use.Choose a different mail id ")
+            raise ValidationError(f"{field.data} already in use.Choose a different mail id ")
+
     username = StringField(label="Enter username", validators=[DataRequired(), Length(min=6, max=20)])
+    def validate_username(self, field):
+        user = UserModel.query.filter_by(username=f"{field.data}").first()
+        if user is not None:
+            flash(f"{field.data} taken.Choose a different name")
+            raise ValidationError(f"{field.data} taken.Choose a different name")
+
     password = PasswordField(label="Enter password", validators=[DataRequired(), Length(min=8, max=20)])
     confirm_password = PasswordField(label='Confirm Password', validators=[DataRequired(), EqualTo('password', message='Both password fields must be equal!')])
     submit = SubmitField(label="Signup")
